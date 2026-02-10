@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DLL/DLL_Extension.csproj" />
+  <Project Path="KozosResz/KozosResz.csproj" />
+</Solution>
