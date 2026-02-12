@@ -1,4 +1,6 @@
 ﻿
+using static KozosResz.delegates.Delegates;
+
 namespace KozosResz.objects
 {
     public class Rendeles
@@ -14,6 +16,11 @@ namespace KozosResz.objects
         internal void Save()
         {
             throw new NotImplementedException();
+        }
+
+        public void Ertesites(Ertesites ertesites, Vevo vevo)
+        {
+            ertesites(this, vevo);
         }
     }
 }

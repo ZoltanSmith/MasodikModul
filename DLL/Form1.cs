@@ -1,4 +1,3 @@
-using KozosResz;
 using KozosResz.extensions;
 using KozosResz.objects;
 
@@ -25,9 +24,11 @@ namespace DLL_Extension
             t.Add(trm);
             MessageBox.Show(rendeles.ToString());
 
-            t = null;
+            //t = null;
             bool v = t.IsNull();
             t = null;
+
+
 
         }
     }

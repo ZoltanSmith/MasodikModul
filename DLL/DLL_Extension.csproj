@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KozosResz\KozosResz.csproj" />
+    <Reference Include="KozosResz">
+      <HintPath>..\KozosResz\bin\Debug\net8.0\KozosResz.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

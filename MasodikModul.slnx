@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="Delegaltak/Delegaltak.csproj" Id="b42ab980-db99-45b9-9597-20e5b6ac8cb3" />
   <Project Path="DLL/DLL_Extension.csproj" />
   <Project Path="KozosResz/KozosResz.csproj" />
+  <Project Path="SharedProject1/SharedProject1.shproj" Id="657f529d-d49c-4151-847d-a18f3239933d" />
 </Solution>
