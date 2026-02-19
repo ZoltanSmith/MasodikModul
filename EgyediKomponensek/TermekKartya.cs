@@ -9,10 +9,13 @@ namespace EgyediKomponensek
 
         public Termek Termek { get; set; }
 
+
         public TermekKartya()
         {
             Termek.Teszt();
+            //OnCreateControl();
         }
+
 
         private void KosarhozAdas_Click(object sender, EventArgs e)
         {

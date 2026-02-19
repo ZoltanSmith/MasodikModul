@@ -30,11 +30,23 @@
         {
             termekKartya1 = new TermekKartya();
             osszegLabel = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            panel1 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            listView1 = new ListView();
+            splitContainer1 = new SplitContainer();
+            flowLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
+            splitContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // termekKartya1
             // 
-            termekKartya1.Location = new Point(38, 25);
+            termekKartya1.Location = new Point(47, 3);
             termekKartya1.Name = "termekKartya1";
             termekKartya1.OnKlikk = null;
             termekKartya1.Size = new Size(131, 135);
@@ -44,28 +56,116 @@
             // osszegLabel
             // 
             osszegLabel.AutoSize = true;
-            osszegLabel.Location = new Point(65, 395);
+            osszegLabel.Location = new Point(3, 0);
             osszegLabel.Name = "osszegLabel";
             osszegLabel.Size = new Size(38, 15);
             osszegLabel.TabIndex = 1;
             osszegLabel.Text = "label1";
             // 
+            // button1
+            // 
+            button1.Location = new Point(12, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(191, 116);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(216, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(191, 116);
+            button2.TabIndex = 3;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Controls.Add(osszegLabel);
+            flowLayoutPanel1.Controls.Add(termekKartya1);
+            flowLayoutPanel1.Location = new Point(9, 438);
+            flowLayoutPanel1.Margin = new Padding(0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(833, 193);
+            flowLayoutPanel1.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(button1);
+            panel1.Location = new Point(9, 634);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(833, 123);
+            panel1.TabIndex = 5;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0600243F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9399757F));
+            tableLayoutPanel1.Controls.Add(listView1, 0, 0);
+            tableLayoutPanel1.Location = new Point(9, 12);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(833, 202);
+            tableLayoutPanel1.TabIndex = 2;
+            // 
+            // listView1
+            // 
+            listView1.Dock = DockStyle.Fill;
+            listView1.Location = new Point(0, 0);
+            listView1.Margin = new Padding(0);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(417, 101);
+            listView1.TabIndex = 3;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // splitContainer1
+            // 
+            splitContainer1.Location = new Point(9, 220);
+            splitContainer1.Name = "splitContainer1";
+            splitContainer1.Size = new Size(833, 205);
+            splitContainer1.SplitterDistance = 277;
+            splitContainer1.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(osszegLabel);
-            Controls.Add(termekKartya1);
+            ClientSize = new Size(851, 769);
+            Controls.Add(splitContainer1);
+            Controls.Add(panel1);
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(tableLayoutPanel1);
+            MinimumSize = new Size(200, 0);
             Name = "Form1";
             Text = "Form1";
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
+            splitContainer1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private TermekKartya termekKartya1;
         private Label osszegLabel;
+        private Button button1;
+        private Button button2;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel1;
+        private ListView listView1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private SplitContainer splitContainer1;
     }
 }

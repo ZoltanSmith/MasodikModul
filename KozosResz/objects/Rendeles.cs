@@ -5,12 +5,28 @@ namespace KozosResz.objects
 {
     public class Rendeles
     {
+        public double Osszeg { get; private set; }
         public List<Termek> Termekek { get; private set; }
         public char Statusz { get; internal set; }
 
         public Rendeles()
         {
-            Termekek = new();
+            Termekek = new(); // ez azért kell, hogy ne legyen null
+
+            // ha tárolva van már termék, akkor inicializálni kell a rendeles összegét
+            foreach (var termek in Termekek)
+            {
+                Osszeg += termek.Ar;
+            }
+
+            //Osszeg = Termekek.Sum(t => t.GetAr());
+            Osszeg = Termekek.Sum(t => t.Ar);
+        }
+
+        public void AddTermek(Termek termek)
+        {
+            Termekek.Add(termek);
+            Osszeg += termek.Ar;
         }
 
         internal void Save()
