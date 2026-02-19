@@ -6,5 +6,6 @@ namespace KozosResz.delegates
     {
         public delegate void Akcio(Termek t, double d);
         public delegate void Ertesites(Rendeles rendeles, Vevo cimzett);
+        public static Func<Termek, double> ArModositas;
     }
 }

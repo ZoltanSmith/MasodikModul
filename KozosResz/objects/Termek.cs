@@ -4,7 +4,6 @@ namespace KozosResz.objects
 {
     public class Termek
     {
-
         public Termek()
         {
         
@@ -18,6 +17,10 @@ namespace KozosResz.objects
         public void Akciozas(Akcio akcio, double ertek)
         {
             akcio(this, ertek);
+        }
+        public static void Teszt()
+        {
+            Console.WriteLine("");
         }
     }
 }

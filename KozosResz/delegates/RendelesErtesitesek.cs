@@ -7,7 +7,7 @@ namespace KozosResz.delegates
         public static void EmailErtesites(Rendeles rendeles, Vevo vevo)
         {
             Console.WriteLine("E-mail értesítés: Rendelés státusza megváltozott: " + rendeles.Statusz); } public static void SmsErtesites(Rendeles rendeles) { Console.WriteLine("SMS értesítés: Rendelés státusza megváltozott: " + rendeles.Statusz);
-            // TODO: mbox
+            // nem tudunk mbox-ot hívni, mert dll project
             //EmailKuldo.SendEmail(vevo.email, "Rendelés értesítés", "Rendelés státusza megváltozott: " + rendeles.Statusz);
         }
 

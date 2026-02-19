@@ -2,6 +2,7 @@ using KozosResz.objects;
 using static KozosResz.delegates.Delegates;
 using static KozosResz.delegates.TermekAkciok;
 using static KozosResz.delegates.RendelesErtesitesek;
+using KozosResz.delegates;
 
 namespace Delegaltak
 {
@@ -32,8 +33,16 @@ namespace Delegaltak
             Rendeles rendeles = new Rendeles();
             Ertesites ertesitesek = EmailErtesites;
             ertesitesek += SmsErtesites;
+            ertesitesek += FelhasznaloErtesites;
             rendeles.Ertesites(ertesitesek, vevo);
 
+            ArModositok.TizSzazalekMinusz(termek);
+
+        }
+
+        private void FelhasznaloErtesites(Rendeles rendeles, Vevo cimzett)
+        {
+            MessageBox.Show("Minden kész");
         }
 
         public void AfaElengedes(Termek t, double d)

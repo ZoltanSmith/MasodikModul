@@ -1,6 +1,10 @@
 <Solution>
   <Project Path="Delegaltak/Delegaltak.csproj" Id="b42ab980-db99-45b9-9597-20e5b6ac8cb3" />
   <Project Path="DLL/DLL_Extension.csproj" />
+  <Project Path="EgyediKomponensek/EgyediKomponensek.csproj" Id="e761ac50-e7a0-43c3-9625-8bb16f386bb3" />
   <Project Path="KozosResz/KozosResz.csproj" />
   <Project Path="SharedProject1/SharedProject1.shproj" Id="657f529d-d49c-4151-847d-a18f3239933d" />
+  <Project Path="Vizsga1/Vizsga1.csproj" Id="61e3e31a-791c-41c0-a0ea-afac8e583225" />
+  <Project Path="Vizsga2/Vizsga2.csproj" Id="5d7550ef-b0eb-4edb-a2b4-72a4f593f3ec" />
+  <Project Path="Vizsga3/Vizsga3.csproj" Id="8f02e073-f6da-4c5f-af4a-e30e60074f3b" />
 </Solution>
