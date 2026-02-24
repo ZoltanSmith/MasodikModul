@@ -23,8 +23,10 @@ namespace KozosResz.objects
             Osszeg = Termekek.Sum(t => t.Ar);
         }
 
-        public void AddTermek(Termek termek)
+        public void AddTermek(Termek? termek)
         {
+            if (termek == null)
+                return;
             Termekek.Add(termek);
             Osszeg += termek.Ar;
         }
