@@ -100,7 +100,7 @@ namespace EgyediKomponensek
             myButton1.FlatStyle = FlatStyle.Flat;
             myButton1.Location = new Point(420, 104);
             myButton1.Name = "myButton1";
-            myButton1.Size = new Size(75, 23);
+            myButton1.Size = new Size(70, 70);
             myButton1.TabIndex = 2;
             myButton1.Text = "myButton1";
             myButton1.UseVisualStyleBackColor = true;

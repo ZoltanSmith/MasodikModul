@@ -42,11 +42,11 @@ namespace EgyediKomponensek
             int i = flowLayoutPanel1.Controls.Count + 1;
             double v = rnd.Next(1, 100000) / 100.0;
             tk.Termek = new Termek
-             {
-                 Nev = "Teszt termék " + i,
-                 Ar = v,
-                 Aktiv = Convert.ToBoolean(rnd.Next(0, 2)),
-             };
+            {
+                Nev = "Teszt termék " + i,
+                Ar = v,
+                Aktiv = Convert.ToBoolean(rnd.Next(0, 2)),
+            };
             flowLayoutPanel1.Controls.Add(tk);
             return i;
         }
