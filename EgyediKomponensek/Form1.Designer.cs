@@ -104,6 +104,7 @@ namespace EgyediKomponensek
             myButton1.TabIndex = 2;
             myButton1.Text = "myButton1";
             myButton1.UseVisualStyleBackColor = true;
+            myButton1.Click += myButton1_Click;
             // 
             // panel1
             // 

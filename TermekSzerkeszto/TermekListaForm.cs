@@ -22,6 +22,9 @@ namespace TermekSzerkeszto
         private void myButton2_Click(object sender, EventArgs e)
         {
             TermekSzerkForm sz = new TermekSzerkForm(5, k);
+            // ha public-ra változtatjuk a myButton1-et, akkor elérjük így is,
+            // de inkább kerüljük ezt a módot, mert a Designer fileba beleír az IDE is.
+            sz.myButton1.Text = "Szerkesztés";
             sz.HatterSzin = BackColor;
             sz.Show();
             sz.FormClosed += Sz_FormClosed;
@@ -35,6 +38,7 @@ namespace TermekSzerkeszto
         private void Sz_FormClosed(object? sender, FormClosedEventArgs e)
         {
             var f = sender as TermekSzerkForm;
+            var f2 = (TermekSzerkForm)sender;
             MessageBox.Show(f.Termek.Nev + " bezárva");
         }
     }

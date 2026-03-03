@@ -55,6 +55,6 @@
 
         #endregion
 
-        private EgyediKomponensek.Components.MyButton myButton1;
+        public EgyediKomponensek.Components.MyButton myButton1;
     }
 }

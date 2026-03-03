@@ -32,8 +32,13 @@ namespace Delegaltak
             //multicast (eseménykezelõ)
             Rendeles rendeles = new Rendeles();
             Ertesites ertesitesek = EmailErtesites;
+            //feliratkozás
             ertesitesek += SmsErtesites;
             ertesitesek += FelhasznaloErtesites;
+            // ezt a fajta (név nélküli) függvényt nem fogjuk tudni eltávolítani -= operátorral (leiratkozni)
+            // ertesitesek += (r, v) => MessageBox.Show("Rendelés státusza megváltozott: " + r.Statusz);
+            // leiratkozás
+            // ertesitesek -= SmsErtesites;
             rendeles.Ertesites(ertesitesek, vevo);
 
             ArModositok.TizSzazalekMinusz(termek);

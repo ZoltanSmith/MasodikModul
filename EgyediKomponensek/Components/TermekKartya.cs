@@ -8,7 +8,7 @@ namespace EgyediKomponensek.Components
         private Label label2;
         private Label label3;
         private CheckBox checkBox1;
-        private Button button1;
+        private Button button;
         private Termek? termek;
 
         public event EventHandler KosarhozAdasEsemeny;
@@ -16,6 +16,7 @@ namespace EgyediKomponensek.Components
         public Action OnKlikk { get; set; }
 
         public Termek? Termek { get => termek; set => SetTermek(value); }
+        public int Egeszke { get; set; }
 
         private void SetTermek(Termek? t)
         {
@@ -32,7 +33,7 @@ namespace EgyediKomponensek.Components
             //OnCreateControl();
             InitializeComponent();
             Termek = null;
-            button1.Click += KosarhozAdas_Click;
+            button.Click += KosarhozAdas_Click;
 
         }
 
@@ -58,7 +59,7 @@ namespace EgyediKomponensek.Components
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            button1 = new Button();
+            button = new Button();
             checkBox1 = new CheckBox();
             SuspendLayout();
             // 
@@ -94,15 +95,15 @@ namespace EgyediKomponensek.Components
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(42, 120);
-            button1.Name = "button1";
-            button1.Size = new Size(89, 23);
-            button1.TabIndex = 3;
-            button1.Text = "Hozzáad";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button.FlatStyle = FlatStyle.Flat;
+            button.Location = new Point(42, 120);
+            button.Name = "button1";
+            button.Size = new Size(89, 23);
+            button.TabIndex = 3;
+            button.Text = "Hozzáad";
+            button.UseVisualStyleBackColor = true;
+            button.Click += button1_Click;
             // 
             // checkBox1
             // 
@@ -119,7 +120,7 @@ namespace EgyediKomponensek.Components
             // TermekKartya
             // 
             Controls.Add(checkBox1);
-            Controls.Add(button1);
+            Controls.Add(button);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);

@@ -65,5 +65,10 @@ namespace EgyediKomponensek
             osszegLabel.Text = rendeles.Osszeg.ToString();
             MessageBox.Show("Termék hozzáadva!");
         }
+
+        private void myButton1_Click(object sender, EventArgs e)
+        {
+            new ADGVTestForm().Show();
+        }
     }
 }
