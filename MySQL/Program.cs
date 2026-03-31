@@ -23,6 +23,7 @@ namespace MySQL
         {
             string connectionString = "server=localhost;" +
                 "user=zoli;" +
+                "port=34567;" +
                 "password=z;" +
                 "database=gyakorlo_db";
             dbConn = new MySqlConnection(connectionString);
