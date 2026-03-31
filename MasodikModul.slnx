@@ -3,6 +3,7 @@
   <Project Path="DLL/DLL_Extension.csproj" />
   <Project Path="EgyediKomponensek/EgyediKomponensek.csproj" Id="e761ac50-e7a0-43c3-9625-8bb16f386bb3" />
   <Project Path="KozosResz/KozosResz.csproj" />
+  <Project Path="MySQL/MySQL.csproj" Id="0de8505d-089f-49d5-9ac4-862257b3d9a3" />
   <Project Path="SharedProject1/SharedProject1.shproj" Id="657f529d-d49c-4151-847d-a18f3239933d" />
   <Project Path="TermekSzerkeszto/TermekSzerkeszto.csproj" Id="9bc4fd05-f277-4e37-99b7-e4b7396fa4f7" />
   <Project Path="Vizsga1/Vizsga1.csproj" Id="61e3e31a-791c-41c0-a0ea-afac8e583225" />
