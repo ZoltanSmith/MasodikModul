@@ -10,14 +10,14 @@ namespace MySQL.Data
                 "password=z;" +
                 "database=gyakorlo_db";
         
-        static MySqlConnection dbConn = new MySqlConnection(connectionString);
+        internal static MySqlConnection dbConn = new MySqlConnection(connectionString);
 
         internal static void Connect()
         {
             try
             {
                 dbConn.Open();
-                MessageBox.Show("Connection successful!");
+                //MessageBox.Show("Connection successful!");
             }
             catch (Exception ex)
             {
