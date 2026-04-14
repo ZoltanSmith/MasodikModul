@@ -39,5 +39,11 @@ namespace MySQL.Repository
         {
              return Conn.Felhasznalok.Count();
         }
+
+        public void RunStoredProc(int param)
+        {
+            Conn.Felhasznalok.FromSqlRaw("EXEC ProcNeve @param", [param]);
+        }
+
     }
 }

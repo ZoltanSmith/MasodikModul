@@ -14,10 +14,18 @@ namespace MySQL
         public Form1()
         {
             InitializeComponent();
+            splitContainer.SplitterDistance = (splitContainer.Width + splitContainer.SplitterWidth) / 2;
             ConnectWithEF();
             RendelesBetoltesEsModositas();
             GetDataWithDbConn();
-            queries.GetDataWithEF(            queries.GetRendelesLM());
+            InitData();
+            //queries.GetDataWithEF(queries.GetRendelesLM());
+        }
+
+        private void InitData()
+        {
+            FelhasznaloList.DataSource = db.Felhasznalok.ToList();
+            FelhasznaloList.DisplayMember = "Nev";
         }
 
         private void ConnectWithEF()
@@ -64,15 +72,15 @@ namespace MySQL
         {
             Rendeles? rendeles;
             //rendeles = db.Rendelesek.Find(1);
-            rendeles = db.Rendelesek.Include(r => r.RendelesTetelek)
+            rendeles = db.Rendelesek.Include(r => r.Tetelek)
                 .Where(r => r.Id == 6).FirstOrDefault();
             if (rendeles == null)
                 return;
-            rendeles.RendelesTetelek[0].Mennyiseg = 2;
+            rendeles.Tetelek[0].Mennyiseg = 2;
             if (rendeles.Osszesen == null)
             {
                 rendeles.Osszesen = 0m;
-                foreach (var tetel in rendeles.RendelesTetelek)
+                foreach (var tetel in rendeles.Tetelek)
                 {
                     var termek = db.Termekek.Find(tetel.TermekId);
                     if (termek == null)
@@ -84,6 +92,23 @@ namespace MySQL
                 }
             }
             db.SaveChanges();
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            FelhasznaloList.Visible = !FelhasznaloList.Visible;
+        }
+
+        private void FelhasznaloList_DoubleClick(object sender, EventArgs e)
+        {
+            Felhasznalo.Tag = FelhasznaloList.SelectedItem;
+            Felhasznalo.Text = ((Felhasznalo)Felhasznalo.Tag).Nev;
+            FelhasznaloList.Visible = false;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            splitContainer.SplitterDistance = (splitContainer.Width + splitContainer.SplitterWidth) / 2;
         }
     }
 }

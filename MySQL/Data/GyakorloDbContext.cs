@@ -66,12 +66,13 @@ public partial class GyakorloDbContext : DbContext
         modelBuilder.Entity<RendelesTetel>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
+            entity.HasOne(e => e.Termek);
         });
 
         modelBuilder.Entity<Rendeles>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
-            entity.HasMany(d => d.RendelesTetelek).WithOne(p => p.Rendeles).HasForeignKey(d => d.RendelesId);
+            entity.HasMany(d => d.Tetelek).WithOne(p => p.Rendeles).HasForeignKey(d => d.RendelesId);
         });
 
         modelBuilder.Entity<Termek>(entity =>

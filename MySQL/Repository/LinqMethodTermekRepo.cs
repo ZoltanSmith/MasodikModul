@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MySQL.Data;
+using MySQL.DTO;
 using MySQL.Model;
 using Org.BouncyCastle.Utilities;
 using System.Text;
@@ -30,7 +31,8 @@ namespace MySQL.Repository
         internal List<TermekNevHossz> GetNameLength()
         {
             return Context.Termekek
-                .Select(t => new TermekNevHossz() {
+                .Select(t => new TermekNevHossz()
+                {
                     Name = t.TermekNev,
                     Hossz = t.TermekNev!.Length
                     //Hossz = Encoding.UTF8.GetByteCount(t.TermekNev!) // byte length
@@ -45,5 +47,26 @@ namespace MySQL.Repository
                 .Select(x => (nev: x.Nev!, hossz: x.Hossz))
                 .ToList();
         }
+
+        internal int? LegbovebbKategoriaId()
+        {
+            return Context.Termekek.GroupBy(t => t.KategoriaId).OrderByDescending(g => g.Count()).Select(g => g.Key).FirstOrDefault();
+        }
+
+        internal List<(int? kategoriaId, double atlagar)> GetAtlagArByKategoria()
+        {
+            return Context.Termekek.GroupBy(t => t.KategoriaId)
+                .Select(g => new { KategoriaId = g.Key, AtlagAr = g.Average(t => t.Ar) ?? 0d })
+                .AsEnumerable()
+                .Select(x => (kategoriaId: x.KategoriaId, atlagar: x.AtlagAr))
+                .ToList();
+        }
+        internal List<KategoriaAtlag> GetAtlagArObjectByKategoria()
+        {
+            return Context.Termekek.GroupBy(t => t.KategoriaId)
+                .Select(g => new KategoriaAtlag { KategoriaId = g.Key, AtlagAr = g.Average(t => t.Ar) ?? 0d })
+                .ToList();
+        }
+
     }
 }

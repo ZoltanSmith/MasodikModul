@@ -1,5 +1,6 @@
 ﻿using MySQL.Model;
 using MySQL.Repository;
+using System.Runtime.CompilerServices;
 
 namespace MySQL.Data
 {
@@ -108,6 +109,17 @@ namespace MySQL.Data
             List<Termek> termekek = TermekLM.GetNameContainsVezetek();
 
             var x = TermekLM.GetNameLength();
+
+            int? i = TermekLM.LegbovebbKategoriaId();
+            
+            var y = TermekLM.GetAtlagArByKategoria();
+            var y2 = TermekLM.GetAtlagArObjectByKategoria();
+
+            i = RendelesLM.GetFullIncome();
+
+            var rwfn = RendelesLM.GetRendelesekNevvel();
+
+            var tetelek = RendelesLM.GetTetelek();
         }
     }
 }

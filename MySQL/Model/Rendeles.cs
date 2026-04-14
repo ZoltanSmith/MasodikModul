@@ -22,5 +22,5 @@ public partial class Rendeles
     public decimal? Osszesen { get; set; }
 
     [NotMapped]
-    public List<RendelesTetel> RendelesTetelek { get; set; } = new List<RendelesTetel>();
+    public List<RendelesTetel> Tetelek { get; set; } = new List<RendelesTetel>();
 }

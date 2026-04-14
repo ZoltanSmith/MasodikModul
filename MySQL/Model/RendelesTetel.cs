@@ -23,4 +23,6 @@ public partial class RendelesTetel
     public int? Mennyiseg { get; set; }
 
     internal Rendeles Rendeles { get; set; }
+
+    internal Termek Termek { get; set; }
 }
