@@ -31,11 +31,11 @@
             Felhasznalo = new TextBox();
             label1 = new Label();
             FelhasznaloList = new ListBox();
-            dataGridView1 = new DataGridView();
-            advancedDataGridView1 = new Zuby.ADGV.AdvancedDataGridView();
+            TermekGrid = new DataGridView();
+            TetelGrid = new Zuby.ADGV.AdvancedDataGridView();
             splitContainer = new SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)advancedDataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TermekGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TetelGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
             splitContainer.Panel1.SuspendLayout();
             splitContainer.Panel2.SuspendLayout();
@@ -45,6 +45,7 @@
             // Felhasznalo
             // 
             Felhasznalo.Enabled = false;
+            Felhasznalo.ForeColor = Color.Black;
             Felhasznalo.Location = new Point(95, 6);
             Felhasznalo.Margin = new Padding(3, 4, 3, 4);
             Felhasznalo.Name = "Felhasznalo";
@@ -73,28 +74,35 @@
             FelhasznaloList.Visible = false;
             FelhasznaloList.DoubleClick += FelhasznaloList_DoubleClick;
             // 
-            // dataGridView1
+            // TermekGrid
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(383, 518);
-            dataGridView1.TabIndex = 3;
+            TermekGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TermekGrid.Dock = DockStyle.Fill;
+            TermekGrid.Location = new Point(0, 0);
+            TermekGrid.MultiSelect = false;
+            TermekGrid.Name = "TermekGrid";
+            TermekGrid.ReadOnly = true;
+            TermekGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            TermekGrid.Size = new Size(383, 518);
+            TermekGrid.TabIndex = 3;
+            TermekGrid.CellDoubleClick += TermekGrid_Select;
+            TermekGrid.KeyDown += TermekGrid_KeyDown;
             // 
-            // advancedDataGridView1
+            // TetelGrid
             // 
-            advancedDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            advancedDataGridView1.Dock = DockStyle.Fill;
-            advancedDataGridView1.FilterAndSortEnabled = true;
-            advancedDataGridView1.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
-            advancedDataGridView1.Location = new Point(0, 0);
-            advancedDataGridView1.MaxFilterButtonImageHeight = 23;
-            advancedDataGridView1.Name = "advancedDataGridView1";
-            advancedDataGridView1.RightToLeft = RightToLeft.No;
-            advancedDataGridView1.Size = new Size(383, 518);
-            advancedDataGridView1.SortStringChangedInvokeBeforeDatasourceUpdate = true;
-            advancedDataGridView1.TabIndex = 4;
+            TetelGrid.AllowUserToAddRows = false;
+            TetelGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            TetelGrid.Dock = DockStyle.Fill;
+            TetelGrid.FilterAndSortEnabled = true;
+            TetelGrid.FilterStringChangedInvokeBeforeDatasourceUpdate = true;
+            TetelGrid.Location = new Point(0, 0);
+            TetelGrid.MaxFilterButtonImageHeight = 23;
+            TetelGrid.Name = "TetelGrid";
+            TetelGrid.RightToLeft = RightToLeft.No;
+            TetelGrid.Size = new Size(383, 518);
+            TetelGrid.SortStringChangedInvokeBeforeDatasourceUpdate = true;
+            TetelGrid.TabIndex = 4;
+            TetelGrid.FilterStringChanged += TetelGrid_FilterStringChanged;
             // 
             // splitContainer
             // 
@@ -104,11 +112,11 @@
             // 
             // splitContainer.Panel1
             // 
-            splitContainer.Panel1.Controls.Add(dataGridView1);
+            splitContainer.Panel1.Controls.Add(TermekGrid);
             // 
             // splitContainer.Panel2
             // 
-            splitContainer.Panel2.Controls.Add(advancedDataGridView1);
+            splitContainer.Panel2.Controls.Add(TetelGrid);
             splitContainer.Size = new Size(770, 518);
             splitContainer.SplitterDistance = 383;
             splitContainer.TabIndex = 5;
@@ -128,8 +136,8 @@
             Text = "Form1";
             MouseClick += Form1_MouseClick;
             Resize += Form1_Resize;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)advancedDataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TermekGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TetelGrid).EndInit();
             splitContainer.Panel1.ResumeLayout(false);
             splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer).EndInit();
@@ -143,8 +151,8 @@
         private TextBox Felhasznalo;
         private Label label1;
         private ListBox FelhasznaloList;
-        private DataGridView dataGridView1;
-        private Zuby.ADGV.AdvancedDataGridView advancedDataGridView1;
+        private DataGridView TermekGrid;
+        private Zuby.ADGV.AdvancedDataGridView TetelGrid;
         private SplitContainer splitContainer;
     }
 }

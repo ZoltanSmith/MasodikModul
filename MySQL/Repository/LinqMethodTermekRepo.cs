@@ -13,7 +13,7 @@ namespace MySQL.Repository
 
         public required GyakorloDbContext Context { get; set; }
 
-        internal List<Termek> GetPriceBetween5And15Th()
+        internal List<Model.Termek> GetPriceBetween5And15Th()
         {
             return Context.Termekek.Where(t => t.Ar >= 5000 && t.Ar <= 15000)
                 .ToList()
@@ -21,7 +21,7 @@ namespace MySQL.Repository
                 ;
         }
 
-        internal List<Termek> GetNameContainsVezetek()
+        internal List<Model.Termek> GetNameContainsVezetek()
         {
             return Context.Termekek
                 .Where(t => t.TermekNev!.ToLower().Contains("vezeték"))
@@ -68,5 +68,20 @@ namespace MySQL.Repository
                 .ToList();
         }
 
+
+        public List<DTO.Termek> GetAll()
+        {
+            return Context.Termekek.Join(Context.Kategoria, t => t.KategoriaId, k => k.Id, (t, k) =>
+                new DTO.Termek
+                {
+                    Id = t.Id,
+                    TermekNev = t.TermekNev,
+                    Ar = t.Ar,
+                    KategoriaNev = k.Nev
+                }
+            ).ToList();
+
+            //TODO: async verzió
+        }
     }
 }

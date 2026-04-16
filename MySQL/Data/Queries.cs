@@ -52,6 +52,11 @@ namespace MySQL.Data
             return RendelesLM;
         }
 
+        public LinqMethodTermekRepo GetTermekService()
+        {
+            return TermekLM;
+        }
+
         internal void GetDataWithEF(LinqMethodRendelesRepo rendelesLM)
         {
             //System.Collections.IEnumerable enumerable = raw.GetRendelesWithAllData();

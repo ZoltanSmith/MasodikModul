@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using MySQL.Data;
+using MySQL.DTO;
 using MySQL.Model;
 using MySQL.Repository;
+using System.ComponentModel;
 
 namespace MySQL
 {
@@ -10,6 +12,8 @@ namespace MySQL
     {
         static GyakorloDbContext db;
         Queries queries;
+        Rendeles rendeles;
+        BindingList<Tetel> tetelek;
 
         public Form1()
         {
@@ -26,6 +30,21 @@ namespace MySQL
         {
             FelhasznaloList.DataSource = db.Felhasznalok.ToList();
             FelhasznaloList.DisplayMember = "Nev";
+
+            rendeles = new();
+            tetelek = new();
+
+            TermekGrid.DataSource = queries.GetTermekService().GetAll();
+            TetelGrid.DataSource = tetelek;
+            TetelGrid.Columns["TermekNev"].ReadOnly = true;
+            // TODO: Reflexióval megkeresni a property-t
+            TetelGrid.Columns[0].ReadOnly = true;
+
+            TermekGrid.Columns["Ar"].ValueType = typeof(Int32);
+            //foreach (DataGridViewColumn col in TermekGrid.Columns)
+            //{
+            //    MessageBox.Show($"{col.Name}, {col.DataPropertyName}");
+            //}
         }
 
         private void ConnectWithEF()
@@ -109,6 +128,67 @@ namespace MySQL
         private void Form1_Resize(object sender, EventArgs e)
         {
             splitContainer.SplitterDistance = (splitContainer.Width + splitContainer.SplitterWidth) / 2;
+        }
+
+        /// <summary>
+        /// Dblclk event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TermekGrid_Select(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = -1;
+            //if (sender == null)
+            //{
+            //    row = TermekGrid.CurrentRow.Index;
+            //}
+            //row = e.RowIndex;
+
+            row = e?.RowIndex ?? TermekGrid.CurrentRow.Index;
+
+            if (!(TermekGrid.DataSource is List<DTO.Termek>))
+            {
+                return;
+            }
+
+            var t = (List<DTO.Termek>)TermekGrid.DataSource;
+
+            if (row < 0 || row >= t.Count)
+            {
+                return;
+            }
+
+            var selectedTermek = t[row];
+            //MessageBox.Show($"Hurrá! Megvan a {selectedTermek.TermekNev}!");
+            // TODO: ellenőrizni, hogy van-e már ilyen termék a rendeles.Tetelek-ben, ha igen, akkor csak növelni a mennyiséget, ha nincs, akkor új tételt hozzáadni
+            rendeles.Tetelek.Add(new()
+            {
+                //RendelesId = rendeles.Id, // marad üresen egyelőre, mert még nincs rendeles.Id érték, csak majd a db-ben lesz, amikor elmentjük
+                TermekId = selectedTermek.Id,
+                Mennyiseg = 1
+            });
+
+            //TetelGrid.DataSource = rendeles.Tetelek;
+            tetelek.Add(new Tetel
+            {
+                TermekNev = selectedTermek.TermekNev,
+                Ar = selectedTermek.Ar,
+                Mennyiseg = 1
+            });
+        }
+
+        private void TermekGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //TermekGrid_Select(TermekGrid, new DataGridViewCellEventArgs(TermekGrid.CurrentRow.Index, TermekGrid.SelectedColumns[0].Index));
+                TermekGrid_Select(null, null);
+            }
+        }
+
+        private void TetelGrid_FilterStringChanged(object sender, Zuby.ADGV.AdvancedDataGridView.FilterEventArgs e)
+        {
+            MessageBox.Show(e.FilterString);
         }
     }
 }
