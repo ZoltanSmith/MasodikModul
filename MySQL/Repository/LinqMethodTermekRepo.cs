@@ -69,19 +69,28 @@ namespace MySQL.Repository
         }
 
 
-        public List<DTO.Termek> GetAll()
+        public List<DTO.Termek> GetPage(int offset, int limit, out int osszesOldal)
         {
+            osszesOldal = (int)Math.Ceiling((double)Context.Termekek.Count() / limit);
             return Context.Termekek.Join(Context.Kategoria, t => t.KategoriaId, k => k.Id, (t, k) =>
-                new DTO.Termek
-                {
-                    Id = t.Id,
-                    TermekNev = t.TermekNev,
-                    Ar = t.Ar,
-                    KategoriaNev = k.Nev
-                }
-            ).ToList();
+                    new DTO.Termek
+                    {
+                        Id = t.Id,
+                        TermekNev = t.TermekNev,
+                        Ar = t.Ar,
+                        KategoriaNev = k.Nev
+                    }
+                )
+                .Skip(offset) // OFFSET
+                .Take(limit) // LIMIT
+                .ToList();
 
             //TODO: async verzió
+        }
+
+        public Model.Termek? GetById(int id)
+        {
+            return Context.Termekek.Find(id);
         }
     }
 }

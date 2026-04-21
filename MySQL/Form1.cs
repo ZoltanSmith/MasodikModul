@@ -3,17 +3,22 @@ using MySql.Data.MySqlClient;
 using MySQL.Data;
 using MySQL.DTO;
 using MySQL.Model;
-using MySQL.Repository;
 using System.ComponentModel;
 
 namespace MySQL
 {
     public partial class Form1 : Form
     {
+        const int PAGESIZE = 10;
         static GyakorloDbContext db;
         Queries queries;
         Rendeles rendeles;
+        BindingSource tetelSource;
         BindingList<Tetel> tetelek;
+
+        // Pagination fields
+        private int currentPage = 1;
+        private int totalPages = 1;
 
         public Form1()
         {
@@ -32,10 +37,27 @@ namespace MySQL
             FelhasznaloList.DisplayMember = "Nev";
 
             rendeles = new();
+            tetelSource = new();
             tetelek = new();
+            tetelSource.DataSource = tetelek;
 
-            TermekGrid.DataSource = queries.GetTermekService().GetAll();
-            TetelGrid.DataSource = tetelek;
+            TermekGrid.Columns.Add(new DataGridViewButtonColumn()
+            {
+                Name = "Edit",
+                Text = "Szerk.",
+                DataPropertyName = "",
+                HeaderText = "",
+                UseColumnTextForButtonValue = true,
+            });
+
+            // Load all products and initialize pagination
+            TermekGrid.DataSource = queries.GetTermekService().GetPage(0, PAGESIZE, out totalPages);
+            TermekGrid.Columns[1].Visible = false; // Id oszlop elrejtése, mert nem fontos a felhasználónak látni
+            currentPage = 1;
+            actualPage.Text = $"{currentPage}";
+            LoadTermekPage();
+
+            TetelGrid.DataSource = tetelSource;
             TetelGrid.Columns["TermekNev"].ReadOnly = true;
             // TODO: Reflexióval megkeresni a property-t
             TetelGrid.Columns[0].ReadOnly = true;
@@ -45,6 +67,17 @@ namespace MySQL
             //{
             //    MessageBox.Show($"{col.Name}, {col.DataPropertyName}");
             //}
+        }
+
+        private void LoadTermekPage()
+        {
+            TermekGrid.DataSource = queries.GetTermekService().GetPage((currentPage - 1) * PAGESIZE, PAGESIZE, out totalPages);
+            actualPage.Text = $"{currentPage}";
+
+            btnTermekFirst.Enabled = currentPage > 1;
+            btnTermekPrev.Enabled = currentPage > 1;
+            btnTermekNext.Enabled = currentPage < totalPages;
+            btnTermekLast.Enabled = currentPage < totalPages;
         }
 
         private void ConnectWithEF()
@@ -188,7 +221,66 @@ namespace MySQL
 
         private void TetelGrid_FilterStringChanged(object sender, Zuby.ADGV.AdvancedDataGridView.FilterEventArgs e)
         {
-            MessageBox.Show(e.FilterString);
+            tetelSource.Filter = e.FilterString;
+            TetelGrid.Invalidate();
+        }
+
+        private void BtnTermekFirst_Click(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            LoadTermekPage();
+        }
+
+        private void BtnTermekPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadTermekPage();
+            }
+        }
+
+        private void BtnTermekNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                LoadTermekPage();
+            }
+        }
+
+        private void BtnTermekLast_Click(object sender, EventArgs e)
+        {
+            currentPage = totalPages;
+            LoadTermekPage();
+        }
+
+        private void TermekGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != TermekGrid.Columns["Edit"].Index
+                || e.RowIndex < 0 || e.RowIndex >= PAGESIZE)
+                return;
+
+            if (TermekGrid?.Columns["Edit"] == null)
+                return;
+
+            var dataSource = TermekGrid.DataSource as List<DTO.Termek>;
+            if (dataSource == null || e.RowIndex >= dataSource.Count)
+                return;
+
+            DTO.Termek dtoTermek = dataSource[e.RowIndex];
+
+            var modelTermek = queries.GetTermekService().GetById(dtoTermek.Id);
+            if (modelTermek == null)
+                return;
+
+            using (var editor = new TermekEditor(db, modelTermek))
+            {
+                if (editor.ShowDialog(this) == DialogResult.OK)
+                {
+                    LoadTermekPage();
+                }
+            }
         }
     }
 }

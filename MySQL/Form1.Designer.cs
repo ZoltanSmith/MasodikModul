@@ -28,18 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             Felhasznalo = new TextBox();
             label1 = new Label();
             FelhasznaloList = new ListBox();
             TermekGrid = new DataGridView();
             TetelGrid = new Zuby.ADGV.AdvancedDataGridView();
+            rendelesTetelBindingSource = new BindingSource(components);
             splitContainer = new SplitContainer();
+            paginationPanel = new Panel();
+            actualPage = new Label();
+            btnTermekLast = new Button();
+            btnTermekNext = new Button();
+            btnTermekPrev = new Button();
+            btnTermekFirst = new Button();
             ((System.ComponentModel.ISupportInitialize)TermekGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TetelGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)rendelesTetelBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer).BeginInit();
             splitContainer.Panel1.SuspendLayout();
             splitContainer.Panel2.SuspendLayout();
             splitContainer.SuspendLayout();
+            paginationPanel.SuspendLayout();
             SuspendLayout();
             // 
             // Felhasznalo
@@ -83,8 +93,9 @@
             TermekGrid.Name = "TermekGrid";
             TermekGrid.ReadOnly = true;
             TermekGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            TermekGrid.Size = new Size(383, 518);
+            TermekGrid.Size = new Size(383, 478);
             TermekGrid.TabIndex = 3;
+            TermekGrid.CellClick += TermekGrid_CellClick;
             TermekGrid.CellDoubleClick += TermekGrid_Select;
             TermekGrid.KeyDown += TermekGrid_KeyDown;
             // 
@@ -104,15 +115,19 @@
             TetelGrid.TabIndex = 4;
             TetelGrid.FilterStringChanged += TetelGrid_FilterStringChanged;
             // 
+            // rendelesTetelBindingSource
+            // 
+            rendelesTetelBindingSource.DataSource = typeof(Model.RendelesTetel);
+            // 
             // splitContainer
             // 
-            splitContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            splitContainer.Location = new Point(12, 36);
+            splitContainer.Location = new Point(0, 0);
             splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
             // 
             splitContainer.Panel1.Controls.Add(TermekGrid);
+            splitContainer.Panel1.Controls.Add(paginationPanel);
             // 
             // splitContainer.Panel2
             // 
@@ -120,6 +135,64 @@
             splitContainer.Size = new Size(770, 518);
             splitContainer.SplitterDistance = 383;
             splitContainer.TabIndex = 5;
+            // 
+            // paginationPanel
+            // 
+            paginationPanel.Controls.Add(actualPage);
+            paginationPanel.Controls.Add(btnTermekLast);
+            paginationPanel.Controls.Add(btnTermekNext);
+            paginationPanel.Controls.Add(btnTermekPrev);
+            paginationPanel.Controls.Add(btnTermekFirst);
+            paginationPanel.Dock = DockStyle.Bottom;
+            paginationPanel.Location = new Point(0, 478);
+            paginationPanel.Name = "paginationPanel";
+            paginationPanel.Size = new Size(383, 40);
+            paginationPanel.TabIndex = 5;
+            // 
+            // actualPage
+            // 
+            actualPage.Location = new Point(111, 8);
+            actualPage.Name = "actualPage";
+            actualPage.Size = new Size(25, 25);
+            actualPage.TabIndex = 5;
+            actualPage.Text = "0";
+            actualPage.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnTermekLast
+            // 
+            btnTermekLast.Location = new Point(194, 8);
+            btnTermekLast.Name = "btnTermekLast";
+            btnTermekLast.Size = new Size(50, 25);
+            btnTermekLast.TabIndex = 3;
+            btnTermekLast.Text = ">>";
+            btnTermekLast.Click += BtnTermekLast_Click;
+            // 
+            // btnTermekNext
+            // 
+            btnTermekNext.Location = new Point(142, 8);
+            btnTermekNext.Name = "btnTermekNext";
+            btnTermekNext.Size = new Size(50, 25);
+            btnTermekNext.TabIndex = 2;
+            btnTermekNext.Text = ">";
+            btnTermekNext.Click += BtnTermekNext_Click;
+            // 
+            // btnTermekPrev
+            // 
+            btnTermekPrev.Location = new Point(55, 8);
+            btnTermekPrev.Name = "btnTermekPrev";
+            btnTermekPrev.Size = new Size(50, 25);
+            btnTermekPrev.TabIndex = 1;
+            btnTermekPrev.Text = "<";
+            btnTermekPrev.Click += BtnTermekPrev_Click;
+            // 
+            // btnTermekFirst
+            // 
+            btnTermekFirst.Location = new Point(3, 8);
+            btnTermekFirst.Name = "btnTermekFirst";
+            btnTermekFirst.Size = new Size(50, 25);
+            btnTermekFirst.TabIndex = 0;
+            btnTermekFirst.Text = "<<";
+            btnTermekFirst.Click += BtnTermekFirst_Click;
             // 
             // Form1
             // 
@@ -138,10 +211,12 @@
             Resize += Form1_Resize;
             ((System.ComponentModel.ISupportInitialize)TermekGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)TetelGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)rendelesTetelBindingSource).EndInit();
             splitContainer.Panel1.ResumeLayout(false);
             splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer).EndInit();
             splitContainer.ResumeLayout(false);
+            paginationPanel.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -154,5 +229,15 @@
         private DataGridView TermekGrid;
         private Zuby.ADGV.AdvancedDataGridView TetelGrid;
         private SplitContainer splitContainer;
+        private Panel paginationPanel;
+        private Button btnTermekFirst;
+        private Button btnTermekPrev;
+        private Button btnTermekNext;
+        private Button btnTermekLast;
+        private DataGridViewTextBoxColumn rendelesIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn termekIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn mennyisegDataGridViewTextBoxColumn;
+        private BindingSource rendelesTetelBindingSource;
+        private Label actualPage;
     }
 }
