@@ -4,6 +4,7 @@ using MySQL.Data;
 using MySQL.DTO;
 using MySQL.Model;
 using System.ComponentModel;
+using System.Data;
 
 namespace MySQL
 {
@@ -13,8 +14,7 @@ namespace MySQL
         static GyakorloDbContext db;
         Queries queries;
         Rendeles rendeles;
-        BindingSource tetelSource;
-        BindingList<Tetel> tetelek;
+        DataTable tetelDataTable;
 
         // Pagination fields
         private int currentPage = 1;
@@ -37,9 +37,13 @@ namespace MySQL
             FelhasznaloList.DisplayMember = "Nev";
 
             rendeles = new();
-            tetelSource = new();
-            tetelek = new();
-            tetelSource.DataSource = tetelek;
+
+            // Initialize DataTable for TetelGrid (ADG native support)
+            tetelDataTable = new DataTable();
+            tetelDataTable.Columns.Add("TermekId", typeof(int));
+            tetelDataTable.Columns.Add("TermekNev", typeof(string));
+            tetelDataTable.Columns.Add("Ar", typeof(int));
+            tetelDataTable.Columns.Add("Mennyiseg", typeof(int));
 
             TermekGrid.Columns.Add(new DataGridViewButtonColumn()
             {
@@ -57,16 +61,12 @@ namespace MySQL
             actualPage.Text = $"{currentPage}";
             LoadTermekPage();
 
-            TetelGrid.DataSource = tetelSource;
+            TetelGrid.DataSource = tetelDataTable;
             TetelGrid.Columns["TermekNev"].ReadOnly = true;
-            // TODO: Reflexióval megkeresni a property-t
-            TetelGrid.Columns[0].ReadOnly = true;
+            TetelGrid.Columns["Ar"].ReadOnly = true;
+            TetelGrid.Columns["TermekId"].Visible = false;
 
             TermekGrid.Columns["Ar"].ValueType = typeof(Int32);
-            //foreach (DataGridViewColumn col in TermekGrid.Columns)
-            //{
-            //    MessageBox.Show($"{col.Name}, {col.DataPropertyName}");
-            //}
         }
 
         private void LoadTermekPage()
@@ -171,13 +171,8 @@ namespace MySQL
         private void TermekGrid_Select(object sender, DataGridViewCellEventArgs e)
         {
             int row = -1;
-            //if (sender == null)
-            //{
-            //    row = TermekGrid.CurrentRow.Index;
-            //}
-            //row = e.RowIndex;
 
-            row = e?.RowIndex ?? TermekGrid.CurrentRow.Index;
+            row = e?.RowIndex ?? TermekGrid.CurrentRow?.Index ?? -1;
 
             if (!(TermekGrid.DataSource is List<DTO.Termek>))
             {
@@ -192,22 +187,15 @@ namespace MySQL
             }
 
             var selectedTermek = t[row];
-            //MessageBox.Show($"Hurrá! Megvan a {selectedTermek.TermekNev}!");
-            // TODO: ellenőrizni, hogy van-e már ilyen termék a rendeles.Tetelek-ben, ha igen, akkor csak növelni a mennyiséget, ha nincs, akkor új tételt hozzáadni
+
             rendeles.Tetelek.Add(new()
             {
-                //RendelesId = rendeles.Id, // marad üresen egyelőre, mert még nincs rendeles.Id érték, csak majd a db-ben lesz, amikor elmentjük
                 TermekId = selectedTermek.Id,
                 Mennyiseg = 1
             });
 
-            //TetelGrid.DataSource = rendeles.Tetelek;
-            tetelek.Add(new Tetel
-            {
-                TermekNev = selectedTermek.TermekNev,
-                Ar = selectedTermek.Ar,
-                Mennyiseg = 1
-            });
+            // Add to DataTable
+            tetelDataTable.Rows.Add(selectedTermek.Id, selectedTermek.TermekNev, selectedTermek.Ar, 1);
         }
 
         private void TermekGrid_KeyDown(object sender, KeyEventArgs e)
@@ -221,7 +209,18 @@ namespace MySQL
 
         private void TetelGrid_FilterStringChanged(object sender, Zuby.ADGV.AdvancedDataGridView.FilterEventArgs e)
         {
-            tetelSource.Filter = e.FilterString;
+            if (tetelDataTable == null)
+                return;
+            
+            try
+            {
+                tetelDataTable.DefaultView.RowFilter = e.FilterString;
+            }
+            catch
+            {
+                tetelDataTable.DefaultView.RowFilter = "";
+            }
+
             TetelGrid.Invalidate();
         }
 
