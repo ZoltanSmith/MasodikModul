@@ -1,4 +1,5 @@
 using Idojaras.Model.Geo;
+using System.Text.Json;
 
 namespace Idojaras
 {
@@ -14,12 +15,12 @@ namespace Idojaras
             string city = "Budapest";
 
             #region Task ContinueWith
-            Task<HttpResponseMessage> task = geocodingProvider.GetCoordinatesByNameAsync(city);
-            task.ContinueWith(response =>
-            {
-                string result = response.Result.Content.ReadAsStringAsync().Result;
-                label1.Text = result;
-            });
+            //Task<HttpResponseMessage> task = geocodingProvider.GetCoordinatesByNameAsync(city);
+            //task.ContinueWith(response =>
+            //{
+            //    string result = response.Result.Content.ReadAsStringAsync().Result;
+            //    label1.Text = result;
+            //});
             #endregion
 
             #region mintha szinkron lenne
@@ -27,10 +28,11 @@ namespace Idojaras
             #endregion
 
             #region async await
-            getCoordinates(city);
-#endregion
+            //getCoordinates(city);
+            #endregion
 
-            MessageBox.Show("Test");
+            //MessageBox.Show("Test");
+
         }
 
         async void getCoordinates(string city)
