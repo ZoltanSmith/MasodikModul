@@ -12,14 +12,14 @@ namespace Idojaras.Model.Geo
         string geoEndPoint = "v1/search/";
         string geoParam = "?language=en&format=json&count=1&name=";
 
-        string weatherEndPoint = "v1/forecast/";
-        string weatherParam = "?daily=weather_code,temperature_2m_max,temperature_2m_min&";
-
-        public Task<HttpResponseMessage> GetCoordinatesByNameAsync(string location)
+        public OpenMeteo()
         {
             Client = new HttpClient();
             Client.BaseAddress = new Uri(BaseUrl);
+        }
 
+        public Task<HttpResponseMessage> GetCoordinatesByNameAsync(string location)
+        {
             //Coordinates coords = new Coordinates();
             //coords.City = "location";
 
@@ -33,15 +33,6 @@ namespace Idojaras.Model.Geo
 
             //});
             //
-        }
-
-        //TODO: feldolgozni a response-t
-        public Task<HttpResponseMessage> GetWeather(OpenMeteoLocation oml)
-        {
-            string dtString = DateTime.Now.ToString("yyyy-MM-dd");
-            return Client.GetAsync(weatherEndPoint + weatherParam + WebUtility.UrlEncode(
-                $"start_date={dtString}&end_date={dtString}&latitude={oml.latitude}&longitude={oml.longitude}"
-                ));
         }
 
         public Coordinates GetCoordinatesByName(string location)
@@ -58,7 +49,13 @@ namespace Idojaras.Model.Geo
                 return rv;
 
             OpenMeteoLocation oml = locations.results[0];
-            //TODO: itt!
+
+            rv = new Coordinates()
+            {
+                City = oml.name,
+                Latitude = oml.latitude,
+                Longitude = oml.longitude
+            };
 
             return rv;
         }

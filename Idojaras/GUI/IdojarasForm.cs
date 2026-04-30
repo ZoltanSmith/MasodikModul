@@ -1,4 +1,5 @@
 using Idojaras.Model.Geo;
+using Idojaras.Model.Weather;
 using System.Text.Json;
 
 namespace Idojaras
@@ -10,7 +11,7 @@ namespace Idojaras
         public IdojarasForm()
         {
             InitializeComponent();
-            geocodingProvider = new OpenMeteo();
+            geocodingProvider = new Model.Geo.OpenMeteo();
 
             string city = "Budapest";
 
@@ -30,6 +31,15 @@ namespace Idojaras
             #region async await
             //getCoordinates(city);
             #endregion
+
+            IWeatherProvider weatherProvider = new Model.Weather.OpenMeteo();
+            try
+            {
+                weatherProvider.GetWeather(coordinates);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             //MessageBox.Show("Test");
 
