@@ -1,12 +1,12 @@
 using Idojaras.Model.Geo;
 using Idojaras.Model.Weather;
-using System.Text.Json;
 
 namespace Idojaras
 {
     public partial class IdojarasForm : Form
     {
         IGeocodingProvider geocodingProvider;
+        IWeatherProvider weatherProvider;
 
         public IdojarasForm()
         {
@@ -32,14 +32,8 @@ namespace Idojaras
             //getCoordinates(city);
             #endregion
 
-            IWeatherProvider weatherProvider = new Model.Weather.OpenMeteo();
-            try
-            {
-                weatherProvider.GetWeather(coordinates);
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            weatherProvider = new Model.Weather.OpenMeteo();
+            
 
             //MessageBox.Show("Test");
 
@@ -49,7 +43,38 @@ namespace Idojaras
         {
             HttpResponseMessage response = await geocodingProvider.GetCoordinatesByNameAsync(city);
             string result = await response.Content.ReadAsStringAsync();
-            label1.Text = result;
+            WeatherText.Text = result;
+        }
+
+        private void CityText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    Coordinates coordinates = geocodingProvider.GetCoordinatesByName(CityText.Text);
+
+                    var task = new Task<WeatherData>(() =>
+                    {
+                        return weatherProvider.GetWeather(coordinates);
+                    });
+                    task.ContinueWith(task =>
+                    {
+                        var result = task.Result;
+                        Invoke(() =>
+                        {
+                            WeatherText.Text = result.ToString();
+                            //WeatherImg.Image = result.GetImage();
+                            WeatherImg.ImageLocation = result.GetImageUrl();
+                        });
+                    });
+                    task.Start();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
