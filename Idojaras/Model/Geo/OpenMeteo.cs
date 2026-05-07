@@ -60,6 +60,11 @@ namespace Idojaras.Model.Geo
             return rv;
         }
 
+        /// <summary>
+        /// ez adja az API válaszát JSON stringjét
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         string? GetJson(string location)
         {
             try
