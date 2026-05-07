@@ -39,6 +39,10 @@ namespace Tamagocsi
         private void eledelCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             var valasztottEledel = eledelCombo.SelectedItem;
+            if (!(allatListBox.SelectedItem is Allat))
+            {
+                MessageBox.Show("nem jó a típus!");
+            }
             var valasztottAllat = allatListBox.SelectedItem as Allat;
             var valasztottAllatValue = allatListBox.SelectedValue;
 

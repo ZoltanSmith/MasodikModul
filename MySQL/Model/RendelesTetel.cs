@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MySQL.Model;
 
 [Table("rendeles_tetelek")]
-public partial class RendelesTetel
+public partial class RendelesTetel : ICloneable
 {
     [Key]
     [Column("id")]
@@ -25,4 +25,19 @@ public partial class RendelesTetel
     internal Rendeles Rendeles { get; set; }
 
     internal Termek Termek { get; set; }
+
+    public object Clone()
+    {
+        return new RendelesTetel
+        {
+            Id = this.Id,
+            RendelesId = this.RendelesId,
+            TermekId = this.TermekId,
+            Mennyiseg = this.Mennyiseg,
+            Termek = this.Termek,
+            // Note: Rendeles klónozásakor körkörörös hivatkozás léphet fel, ezért csak a referencia másolása javasolt.
+            //Rendeles = this.Rendeles != null ? (Rendeles)this.Rendeles.Clone() : null,
+            Rendeles = this.Rendeles
+        };
+    }
 }

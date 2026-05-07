@@ -143,6 +143,18 @@ namespace MySQL
                     rendeles.Osszesen += termek.Ar * tetel.Mennyiseg;
                 }
             }
+
+            #region Klónozás / Clone
+            object clone = rendeles.Clone();
+            Rendeles rendKlon = (Rendeles)clone;
+
+            Rendeles shallowRendelesKlon = rendeles.Klonozas();
+
+            rendKlon.Datum = DateTime.Now;
+            //... lehet folytatni
+
+            #endregion
+
             db.SaveChanges();
         }
 
