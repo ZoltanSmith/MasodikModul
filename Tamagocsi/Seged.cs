@@ -2,7 +2,7 @@
 {
     internal static class Seged
     {
-        static string[] allatNevek = new string[]
+        static internal string[] allatNevek = new string[]
         {
             "Bodri", "Buksi", "Cirmi", "Lulu", "Béla",
             "Gombóc", "Fickó", "Mancs", "Pajti", "Süti",
@@ -12,7 +12,7 @@
             "Bundás", "Báró", "Molly", "Milo", "Toby"
         };
 
-        static string[] allatFajtak =
+        static internal string[] allatFajtak =
         [
             "Aranyretriever", "Német juhászkutya", "Sziámi macska", "Bengáli macska", "Tengerimalac",
             "Aranyhörcsög", "Afrikai törpesün", "Szakállas agáma", "Nimfapapagáj", "Kanári",
@@ -22,7 +22,7 @@
             "Sarki róka", "Mosómedve", "Láma", "Alpaka", "Kapibara"
         ];
 
-        static string[] allatEledelek = new string[]
+        static internal string[] allatEledelek = new string[]
         {
             "Száraz kutyatáp", "Konzerves macskaeledel", "Marhahús nyesedék", "Csirkemellfilé", "Lazacolaj",
             "Főtt tojás", "Almaszeletek", "Sárgarépa", "Madáreleség keverék", "Szárított lisztkukac",

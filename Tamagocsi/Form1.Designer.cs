@@ -39,11 +39,13 @@
             // 
             eledelCombo.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             eledelCombo.BackColor = Color.LightCyan;
+            eledelCombo.DropDownStyle = ComboBoxStyle.DropDownList;
             eledelCombo.FormattingEnabled = true;
             eledelCombo.Location = new Point(335, 29);
             eledelCombo.Name = "eledelCombo";
             eledelCombo.Size = new Size(144, 26);
             eledelCombo.TabIndex = 0;
+            eledelCombo.SelectedIndexChanged += eledelCombo_SelectedIndexChanged;
             // 
             // allatListBox
             // 
