@@ -10,6 +10,9 @@ namespace MySQL.Data
                 "password=z;" +
                 "database=gyakorlo_db";
         
+        internal static string connectionString4SQLite =
+            "Data Source=C:\\Users\\z\\Downloads\\SQLiteDatabaseBrowserPortable\\test.db;";
+        
         internal static MySqlConnection dbConn = new MySqlConnection(connectionString);
 
         internal static void Connect()

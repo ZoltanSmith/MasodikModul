@@ -5,6 +5,7 @@
   <Project Path="Idojaras/Idojaras.csproj" Id="a4a31342-38dd-48b3-9784-daabc4977f56" />
   <Project Path="KozosResz/KozosResz.csproj" />
   <Project Path="MySQL/MySQL.csproj" Id="0de8505d-089f-49d5-9ac4-862257b3d9a3" />
+  <Project Path="Reflexio/Reflexio.csproj" Id="a5997d51-00b4-428d-8a42-75f562f957ef" />
   <Project Path="SharedProject1/SharedProject1.shproj" Id="657f529d-d49c-4151-847d-a18f3239933d" />
   <Project Path="Szalak/Szalak.csproj" Id="23f03e9d-028d-4145-b97e-38c01cb31ffa" />
   <Project Path="Tamagocsi/Tamagocsi.csproj" Id="c0cb865d-d837-4a72-8d3c-2cbd549500d5" />

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace MySQL.Model;
 
@@ -26,6 +23,16 @@ public partial class RendelesTetel : ICloneable
 
     internal Termek Termek { get; set; }
 
+    public RendelesTetel() { }
+
+    public RendelesTetel(Termek t, Rendeles r, int menny)
+    {
+        this.TermekId = t.Id;
+        this.RendelesId = r.Id;
+        this.Mennyiseg = menny;
+    }
+
+
     public object Clone()
     {
         return new RendelesTetel
@@ -40,4 +47,5 @@ public partial class RendelesTetel : ICloneable
             Rendeles = this.Rendeles
         };
     }
+
 }

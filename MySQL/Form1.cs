@@ -25,10 +25,45 @@ namespace MySQL
             InitializeComponent();
             splitContainer.SplitterDistance = (splitContainer.Width + splitContainer.SplitterWidth) / 2;
             ConnectWithEF();
-            RendelesBetoltesEsModositas();
+            AdatbazisFeltoltes();
+            RendelesBetoltesEsModositas(1);
             GetDataWithDbConn();
             InitData();
             //queries.GetDataWithEF(queries.GetRendelesLM());
+        }
+
+        private void AdatbazisFeltoltes()
+        {
+            //var kat1 = new Kategoria() { Id = 1, Nev = "Alkatrész" };
+            //var kat2 = new Kategoria() { Id = 2, Nev = "Periféria" };
+            //db.Kategoria.AddRange(kat1, kat2);
+
+            var katAlk = db.Kategoria.Find(1);
+            var katPer = db.Kategoria.Find(2);
+
+            var termek1 = new Model.Termek() { TermekNev = "Processzor", Ar = 50000, KategoriaId = katAlk.Id };
+            var termek2 = new Model.Termek() { TermekNev = "Billentyűzet", Ar = 12000, KategoriaId = katPer.Id };
+            db.Termekek.AddRange(termek1, termek2);
+
+            var felhasznalo = new Felhasznalo() { Nev = "admin", Email = "admin@prooktatas.hu" };
+
+            // ha hatátároztunk meg idegen kulcsot, akkor db.SaveChanges(); kell ide
+
+            var rendeles = new Rendeles()
+            {
+                Datum = DateTime.Now,
+                FelhasznaloId = 1, // emiatt ^
+                Tetelek = new List<RendelesTetel>()
+            };
+
+            db.Rendelesek.Add(rendeles);
+            db.SaveChanges();
+
+            rendeles.Tetelek.Add(new RendelesTetel(termek1, rendeles, 2));
+            rendeles.Tetelek.Add(new RendelesTetel(termek2, rendeles, 34));
+
+
+            db.SaveChanges();
         }
 
         private void InitData()
@@ -120,12 +155,12 @@ namespace MySQL
         /// 
         /// </summary>
         /// <exception cref="Exception"></exception>
-        private static void RendelesBetoltesEsModositas()
+        private static void RendelesBetoltesEsModositas(int rendelesId)
         {
             Rendeles? rendeles;
             //rendeles = db.Rendelesek.Find(1);
             rendeles = db.Rendelesek.Include(r => r.Tetelek)
-                .Where(r => r.Id == 6).FirstOrDefault();
+                .Where(r => r.Id == rendelesId).FirstOrDefault();
             if (rendeles == null)
                 return;
             rendeles.Tetelek[0].Mennyiseg = 2;
