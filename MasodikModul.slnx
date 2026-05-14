@@ -3,6 +3,7 @@
   <Project Path="DLL/DLL_Extension.csproj" />
   <Project Path="EgyediKomponensek/EgyediKomponensek.csproj" Id="e761ac50-e7a0-43c3-9625-8bb16f386bb3" />
   <Project Path="Idojaras/Idojaras.csproj" Id="a4a31342-38dd-48b3-9784-daabc4977f56" />
+  <Project Path="JelszoGenerator/JelszoGenerator.csproj" Id="178f918b-1a9d-449b-8a0e-d58e3e2d791d" />
   <Project Path="KozosResz/KozosResz.csproj" />
   <Project Path="MySQL/MySQL.csproj" Id="0de8505d-089f-49d5-9ac4-862257b3d9a3" />
   <Project Path="Reflexio/Reflexio.csproj" Id="a5997d51-00b4-428d-8a42-75f562f957ef" />
