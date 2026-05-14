@@ -1,7 +1,9 @@
 using Konscious.Security.Cryptography;
+using KozosResz.extensions;
 using ReaLTaiizor.Forms;
 using System.Security.Cryptography;
 using System.Text;
+using UUIDNext;
 
 namespace JelszoGenerator
 {
@@ -9,6 +11,7 @@ namespace JelszoGenerator
     {
         Random rnd;
         String availableCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.-,%:_";
+        string salt = "enkodom";
 
         public Form1()
         {
@@ -25,9 +28,27 @@ namespace JelszoGenerator
         {
             genereteRandomPassword();
 
-            //vagy
+            //salt = RandomNumberGenerator.GetString(availableCharacters, 6);
+            saltText.Text = salt;
 
-            password.Text = RandomNumberGenerator.GetString(availableCharacters, 6);
+            genereteArgon2Hash(password.Text, salt);
+
+            // visszafejtés:
+
+            var saltFromDB = salt;
+            var hashFromDB = hashText.Text;
+            var hash = genereteArgon2Hash(password.Text, saltFromDB);
+
+            var joAHash = hashFromDB == hash;
+
+            var hashBytesFromDB = Convert.FromBase64String(hashFromDB);
+            var hashBytes = Convert.FromBase64String(hash);
+            // timing-attack ellen:
+            joAHash = CryptographicOperations.FixedTimeEquals(hashBytesFromDB, hashBytes);
+
+            MessageBox.Show(joAHash ? "siker" : "nem jó");
+
+            generateUUID();
         }
 
         void genereteRandomPassword()
@@ -38,17 +59,32 @@ namespace JelszoGenerator
                 sb.Append((char)rnd.Next(49, 123));
             }
             password.Text = sb.ToString();
+            password.Text = "jelszo";
         }
 
-        void genereteArgon2Password()
+        string genereteArgon2Hash(string jelszo, string kodkartya)
         {
-            new Argon2id(Encoding.UTF8.GetBytes("password"))
+            using (var argon = new Argon2id(Encoding.UTF8.GetBytes(jelszo))
             {
-                Salt = Encoding.UTF8.GetBytes("somesalt"),
+                Salt = Encoding.UTF8.GetBytes(kodkartya),
+                Iterations = 3,
                 DegreeOfParallelism = 8, // szálak száma generáláskor
-                Iterations = 4,
                 MemorySize = 1024 * 64 // 64 MB
-            }.GetBytes(16);
+            })
+            {
+                var hash = Convert.ToBase64String(argon.GetBytes(16));
+                hashText.Text = hash;
+                return hash;
+            }
+        }
+
+        void generateUUID()
+        {
+            // Guid.NewGuid().ToString(); // UUID v4
+            // UUIDNext.Uuid.NewDatabaseFriendly(Database.SQLite).ToString(); // UUID v7
+
+            MessageBox.Show(Guid.NewGuid().ToString());
+            MessageBox.Show(Uuid.NewDatabaseFriendly(Database.SQLite).ToString());
         }
     }
 }
