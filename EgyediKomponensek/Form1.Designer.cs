@@ -49,6 +49,7 @@ namespace EgyediKomponensek
             // 
             // termekKartya1
             // 
+            termekKartya1.Egeszke = 0;
             termekKartya1.Location = new Point(3, 3);
             termekKartya1.MinimumSize = new Size(173, 157);
             termekKartya1.Name = "termekKartya1";
@@ -160,6 +161,7 @@ namespace EgyediKomponensek
             Controls.Add(panel1);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MinimumSize = new Size(200, 0);
             Name = "Form1";
             Text = "Form1";
